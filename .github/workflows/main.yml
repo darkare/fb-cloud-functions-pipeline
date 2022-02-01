@@ -29,7 +29,9 @@ jobs:
          
       # Runs a single command using the runners shell   
       - name: goto functions folder
-        run: cd functions
+        run: |
+          cd functions
+          pwd
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
