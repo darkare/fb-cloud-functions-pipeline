@@ -32,14 +32,17 @@ jobs:
         run: |
           cd functions
           pwd
+          npm ci
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: npm ci
+      # - name: Run a one-line script
+      #  run: npm ci
 
       # Runs a build
       - name: Run a one-line script
-        run: npm run build
+        run: |
+          cd functions
+          npm run build
     
       # Deploy to firebase functions
       - name: Deploy to firebase
