@@ -35,7 +35,11 @@ jobs:
     
       # Deploy to firebase functions
       - name: Deploy to firebase
-        run: echo deploy
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env: 
+            FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
       
       - name: Run a multi-line script
         run: |
