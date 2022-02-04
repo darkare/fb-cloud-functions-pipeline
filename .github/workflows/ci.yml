@@ -34,6 +34,8 @@ jobs:
         run: |
           cd functions
           npm test -- --coverage
+          env:
+            ci: true
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
     
