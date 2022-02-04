@@ -43,7 +43,6 @@ jobs:
           npm run build
       - name: deploy to dev firebase   
         if: github.event_name == 'push'   
-        run: echo "deploy to firebase#"
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
