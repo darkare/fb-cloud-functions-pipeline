@@ -26,7 +26,14 @@ jobs:
         run: |
           ls ${{ github.workspace }}
           ls ${{ github.workspace }}/functions
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: npm ci
+        run: |
+          cd functions
+          npm ci
+      - name: run unit test
+        run: |
+          cd functions
+          npm test -- --coverage
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
     
