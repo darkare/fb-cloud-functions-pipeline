@@ -41,7 +41,6 @@ jobs:
         run: |
           cd functions
           npm run build
-           - name: Deploy to firebase
       - name: deploy to dev firebase   
         if: github.event_name == 'push'   
         run: echo "deploy to firebase"
