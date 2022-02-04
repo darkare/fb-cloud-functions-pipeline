@@ -11,6 +11,8 @@ name: ci
 on: 
   pull_request:
     branches: [develop]
+  push:
+    branches: [develop]
 
 jobs:
   build:
@@ -26,7 +28,28 @@ jobs:
         run: |
           ls ${{ github.workspace }}
           ls ${{ github.workspace }}/functions
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: npm ci
+        run: |
+          cd functions
+          npm ci
+      - name: run unit test
+        run: |
+          cd functions
+          npm test -- --coverage
+      - name: build solution
+        if: github.event_name == 'push'
+        run: |
+          cd functions
+          npm run build
+           - name: Deploy to firebase
+      - name: deploy to dev firebase   
+        if: github.event_name == 'push'   
+        run: echo "deploy to firebase"
+        # uses: w9jds/firebase-action@master
+        # with:
+        #   args: deploy --only functions
+        # env: 
+        #     FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
     
