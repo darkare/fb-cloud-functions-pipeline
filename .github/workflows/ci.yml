@@ -15,7 +15,7 @@ on:
     branches: [develop]
 
 jobs:
-  build:
+  dev-build:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -43,12 +43,11 @@ jobs:
           npm run build
       - name: deploy to dev firebase   
         if: github.event_name == 'push'   
-        run: echo "deploy to firebase"
-        # uses: w9jds/firebase-action@master
-        # with:
-        #   args: deploy --only functions
-        # env: 
-        #     FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env: 
+            FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
     
