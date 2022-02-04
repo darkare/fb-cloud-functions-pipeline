@@ -38,7 +38,7 @@ describe('index test suite', ()=> {
   
       const mRes = mockResponse();
       index.helloWorld(req as any, mRes as any);
-      expect (mRes.data).toBe('Hello Daryl v1.1 from Firebase!');
+      expect (mRes.data).toBe('Hello Daryl v1.2 from Firebase!');
  })
 
 })
