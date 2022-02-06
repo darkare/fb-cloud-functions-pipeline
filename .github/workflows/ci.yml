@@ -22,6 +22,7 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v2
+
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       
       - name: List files in the repository
@@ -36,6 +37,13 @@ jobs:
         run: |
           cd functions
           npm test -- --coverage
+
+      - name: Upload code coverage artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: functions/coverage
+
       - name: build solution
         if: github.event_name == 'push'
         run: |
