@@ -32,7 +32,7 @@ jobs:
       #     ls ${{ github.workspace }}/functions
 
       - name: Cache npm node_modules
-        uses: action/cache@v1
+        uses: actions/cache@v1
         with: 
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashfiles('./functions/package-lock.json') }}
