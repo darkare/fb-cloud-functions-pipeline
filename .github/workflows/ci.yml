@@ -12,7 +12,7 @@ on:
   pull_request:
     branches: [develop]
   push:
-    branches: [develop, release]
+    branches: [develop, test]
 
 jobs:
   dev-build:
@@ -66,7 +66,7 @@ jobs:
         env: 
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
       - name: deploy to dev firebase   
-        if: github.event_name == 'push' && github.ref == 'refs/heads/release'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/test'
         uses: w9jds/firebase-action@v2.0.0
         with:
           args: deploy --only functions
