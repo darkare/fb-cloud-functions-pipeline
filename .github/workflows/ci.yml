@@ -12,13 +12,13 @@ on:
   pull_request:
     branches: [develop]
   push:
-    branches: [develop]
+    branches: [develop, release]
 
 jobs:
   dev-build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       
       - name: Check out repository code
@@ -59,12 +59,21 @@ jobs:
           cd functions
           npm run build
       - name: deploy to dev firebase   
-        if: github.event_name == 'push'   
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         uses: w9jds/firebase-action@v2.0.0
         with:
           args: deploy --only functions
         env: 
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+      - name: deploy to dev firebase   
+        if: github.event_name == 'push' && github.ref == 'refs/heads/release'
+        uses: w9jds/firebase-action@v2.0.0
+        with:
+          args: deploy --only functions
+        env: 
+            FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+            PROJECT_ID: ${{secrets.UAT_FIREBASE_PROJECT_ID}}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
 
     
