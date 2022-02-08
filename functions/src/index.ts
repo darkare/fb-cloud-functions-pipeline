@@ -5,5 +5,9 @@ import {functions} from './firebaseConfig'
 // // https://firebase.google.com/docs/functions/typescript
 //
 export const helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello Daryl v1.1 from Firebase!");
+  response.send("Hello Daryl from Firebase!");
+});
+
+export const version = functions.https.onRequest((request, response) => {
+  response.send("v1.0.3");
 });
