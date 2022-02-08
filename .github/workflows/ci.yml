@@ -1,12 +1,13 @@
-# name: GitHub Actions Demo
-#   on: [pull_request]
-#       branches: [develop]
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+##
+# This is the CI/CD workflow for the firebase functions.
+# Pre-requisites:
+# These tokes are stored in the secrets.
+# 1. FIREBASE_TOKEN : ci token obtained via firebase login:ci
+# 2. The project id similar to the .firebaserc file 
+#    2.1 FIREBASE_DEV_PROJECT_ID : project id for deploying to the DEV environment
+#    2.2 FIREBASE_UAT_PROJECT_ID : project id for deploying to the UAT environment
+#    2.3 FIREBASE_PROD_PROJECT_ID : project id for deploying to the PROD environment
+##
 name: ci/cd
 on: 
   pull_request:
@@ -23,7 +24,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
       
       - name: Cache npm node_modules
         uses: actions/cache@v1
@@ -48,14 +49,6 @@ jobs:
           name: code-coverage
           path: functions/coverage
 
-      # this step is not required as the deploy will also build
-      # - name: Build solution
-      #   if: github.event_name == 'push'
-      #   run: |
-      #     cd functions
-      #     npm run build
-      - name: Display github token
-        run:  echo "The github token is ${{ secrets.GITHUB_TOKEN }} - ${{ secrets.GITHUB_TOKEN == null }} "
       - name: Run semantic release
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         env: 
