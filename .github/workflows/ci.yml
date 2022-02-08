@@ -55,7 +55,7 @@ jobs:
       #     cd functions
       #     npm run build
       - name: Display github token
-        run: source .env && echo $GITHUB_TOKEN
+        run:  echo "The github token is ${{ secrets.GITHUB_TOKEN }} - ${{ secrets.GITHUB_TOKEN == null }} "
       - name: Run semantic release
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: |
