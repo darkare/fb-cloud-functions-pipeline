@@ -15,7 +15,7 @@ on:
     branches: [develop, test, master]
 
 jobs:
-  dev-build:
+  cicd:
     runs-on: ubuntu-latest
     steps:
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
@@ -48,18 +48,12 @@ jobs:
           name: code-coverage
           path: functions/coverage
 
-      - name: Upload build folder for Production deployment
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: functions/lib
-
-      - name: Build solution
-        if: github.event_name == 'push'
-        run: |
-          cd functions
-          npm run build
+      # this step is not required as the deploy will also build
+      # - name: Build solution
+      #   if: github.event_name == 'push'
+      #   run: |
+      #     cd functions
+      #     npm run build
 
       - name: Deploy to DEV firebase   
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
@@ -69,6 +63,7 @@ jobs:
         env: 
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
             PROJECT_ID: ${{secrets.FIREBASE_DEV_PROJECT_ID}}    
+
       - name: Deploy to UAT environment
         if: github.event_name == 'push' && github.ref == 'refs/heads/test'
         uses: w9jds/firebase-action@v2.0.0
@@ -86,6 +81,13 @@ jobs:
         env: 
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
             PROJECT_ID: ${{secrets.FIREBASE_PROD_PROJECT_ID}}      
+
+      - name: Upload build folder for Production deployment
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: functions/lib
 
       - run: echo "Job status is ${{ job.status }}."
 
