@@ -65,7 +65,7 @@ jobs:
           args: deploy --only functions
         env: 
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
-      - run: echo ${{secrets.FIREBASE_UAT_PROJECT_ID}}
+      - run: echo "The UAT project is ${{secrets.FIREBASE_UAT_PROJECT_ID}}"
       - name: deploy to dev firebase   
         if: github.event_name == 'push' && github.ref == 'refs/heads/test'
         uses: w9jds/firebase-action@v2.0.0
