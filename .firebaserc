@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "cloud-function-32a30"
-  }
+    "default": "cloud-function-32a30",
+    "PROD": "cloud-functions-prod",
+    "UAT": "cloud-functions-uat-337bd"
+  },
+  "targets": {}
 }
