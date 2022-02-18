@@ -15,7 +15,7 @@ on:
   push:
     branches: [develop, test, master]
 env: 
-  my_branch: ${{ github.ref}}
+  my_branch: ${{ toJSON(github) }}
 jobs:
   cicd:
     runs-on: ubuntu-latest
