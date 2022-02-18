@@ -49,7 +49,8 @@ jobs:
         run: |
           pwd
           ls
-          ls ..
+          cd ..
+          ls
           pwd
 
       # - name: Run npm ci
