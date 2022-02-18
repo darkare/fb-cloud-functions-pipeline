@@ -49,6 +49,8 @@ jobs:
         run: |
           pwd
           ls
+          ls ..
+          pwd
 
       # - name: Run npm ci
       #   run: |
