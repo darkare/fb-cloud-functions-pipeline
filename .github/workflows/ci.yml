@@ -31,7 +31,7 @@ jobs:
         with:
           repository: kinela-connect/server-config-kinela-connect
           token: ${{ secrets.CICD_PAT }}
-          path: /prisma123
+          path: prisma123
       
       - name: Uses node 16.x
         uses: actions/setup-node@v1
