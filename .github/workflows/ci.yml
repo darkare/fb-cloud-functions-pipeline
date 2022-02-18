@@ -15,7 +15,7 @@ on:
   push:
     branches: [develop, test, master]
 env: 
-  my_branch: ${raw##*/}
+  my_branch: ${{ endsWith(github.ref,'develop')?'develop'|'not-develop' }}
 jobs:
   cicd:
     runs-on: ubuntu-latest
