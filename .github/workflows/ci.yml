@@ -29,6 +29,13 @@ jobs:
 
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
 
+      - name: 'decrypt pem file'
+        run: | 
+          cd functions
+          gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output test.pem test.pem.gpg
+          env: 
+            PASSPHRASE: ${{ secrets.PASSPHRASE }}
+
       - name: Check out my other private repo
         uses: actions/checkout@v2
         with:
